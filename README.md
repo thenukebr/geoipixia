@@ -1,9 +1,10 @@
 #geoipixia
-"  ____ _____ ___ ___ ____ _____  _____    _    "<br>
-" / ___| ____/ _ \_ _|  _ \_ _\ \/ /_ _|  / \"   <br>
-"| |  _|  _|| | | | || |_) | | \  / | |  / _ \ " <br>
-"| |_| | |__| |_| | ||  __/| | /  \ | | / ___ \ "<br>
- "\____|_____\___/___|_|  |___/_/\_\___/_/   \_\"<br>
+
+Script para retornar informações sobre um IP/Hostname utilizando as aplicações
+web: "geoiptool.com" e "ipaddress.com". Com filtragem de dados via Shell Script
+é retornado o maior número de informações sobre o IP/Hostname, também
+podendo fazer um scan com nmap para retornar informações sobre o OS e portas
+abertas.
 
 EN:Script to track a IP/Host geolocation
 PT-BR:Script para caçar a geolocalização de um IP/Host
@@ -27,6 +28,8 @@ How to use:
   ./ipcrawler -n google.com
   ./ipcrawler -i 192.168.1.1
 
-*Os sites "geoiptool.com" e "ipaddress.com" são utilizados para trazer informações do IP/Hostname
-**esse script requer 'tor' e 'curl' para funcionar
-**this script require 'tor' and 'curl' to work
+<i>
+  -Os sites "geoiptool.com" e "ipaddress.com" são utilizados para trazer informações do IP/Hostname
+  -esse script requer 'tor' e 'curl' para funcionar
+  -this script require 'tor' and 'curl' to work
+</i>
