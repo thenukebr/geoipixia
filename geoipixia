@@ -1,0 +1,97 @@
+#!/bin/bash
+banner(){
+  echo -e "============================================================"
+echo -e "  ____ _____ ___ ___ ____ _____  _____    _    "
+echo -e " / ___| ____/ _ \_ _|  _ \_ _\ \/ /_ _|  / \   "
+echo -e "| |  _|  _|| | | | || |_) | | \  / | |  / _ \  "
+echo -e "| |_| | |__| |_| | ||  __/| | /  \ | | / ___ \ "
+echo -e ' \____|_____\___/___|_|  |___/_/\_\___/_/   \_\'
+
+
+  echo
+  echo -e "Developer: Vandal VNL"
+  echo -e "GitHub: https://github.com/vandalvnl"
+  echo -e "============================================================"
+}
+
+helper(){
+  banner
+  echo -e "-h or --help:\tCall this help menu\n\t\tChama esse menu de ajuda\n"
+  echo -e "EN:Script to track a IP/Host geolocation"
+  echo -e "PT-BR:Script para caçar a geolocalização de um IP/Host"
+    echo
+  echo -e "-i or --ipaddr:\tInformation about IP/Hostname,like 192.168.1.1"
+  echo -e "\t\tInformação sobre um IP, como 192.168.1.1"
+    echo
+  echo -e "-n or --nmap:\tLocate IP and make scan with nmap"
+  echo -e "\t\tLocaliza o IP e faz um scan com nmap"
+    echo
+  echo -e "--nmap-download: Download nmap from: https://nmap.org/"
+  echo
+  echo -e "How to use:\t./ipcrawler -n google.com"
+  echo -e "\t\t./ipcrawler -i 192.168.1.1"
+  echo -e "**this script require 'tor' and 'curl' to work"
+  echo -e "**esse script requer 'tor' e 'curl' para funcionar"
+}
+
+scanning(){
+  echo -e "\nStarting TOR service for torsocks..."
+  sleep 1;
+  sudo service tor start;
+  echo -e "Tracking: $iphost...\n";
+
+  torsocks curl -s $iphost.ipaddress.com > $dir;
+
+  hostname=$(cat $dir | grep "Hostname" | grep "$iphost" | cut -d ":" -f2 | cut -d "<" -f3| cut -d ">" -f2);
+    if [ "$hostname" == "" ]; then
+      sleep 0;
+    else
+      echo "Hostname: $hostname";
+    fi
+  ipaddress=$(cat $dir | grep "IP Address:" | cut -d ":" -f2 | cut -d ">" -f3 | cut -d "<" -f1);
+  city=$(cat $dir | grep "City:" | cut -d ":" -f2 | cut -d ">" -f3 | cut -d "<" -f1);
+  country=$(cat $dir | grep "Country:" | cut -d ":" -f2 | cut -d "<" -f3 | cut -d ">" -f2);
+  state=$(cat $dir | grep "State:" | cut -d ":" -f2 | cut -d "<" -f3 | cut -d ">" -f2);
+  postalcode=$(cat $dir | grep "Postal Code:" | cut -d ":" -f2 | cut -d ">" -f3 | cut -d "<" -f1);
+  localtime=$(cat $dir | grep "Local Time:" | cut -d ":" -f2-3| cut -d ">" -f3 | cut -d "<" -f1);
+
+  torsocks curl -s https://www.geoiptool.com/en/?ip=$ipaddress > $dir;
+
+  latitude=$(cat -n $dir | grep -n ^| grep -n ^"501" | cut -d ">" -f2 | cut -d "<" -f1);
+  longitude=$(cat -n $dir | grep -n ^| grep -n ^"506" | cut -d ">" -f2 | cut -d "<" -f1);
+
+  echo "IP Address: $ipaddress";
+  echo "Contry: $country";
+  echo "State: $state";
+  echo "City: $city";
+  echo "Latitude: $latitude;"
+  echo "Longitude: $longitude";
+  echo "Postal Code: $postalcode";
+}
+
+scannmap(){
+  sudo nmap -sS -sV -A -O -p80,22,21,23,25,443,3063,103 -sC --script=http-enum -T3 $iphost > $dir;
+  echo
+  if [ "$(echo -e "Open Oports:\n$(cat $dir | grep "/tcp" | grep "open")")" == " " ]; then
+    echo -e "No open ports"
+  else
+     echo -e "Open Oports:\n$(cat $dir | grep "/tcp" | grep "open")";
+  fi
+}
+
+iphost=$2 ;
+dir=$(echo "/tmp/filetrack");
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] || [ "$1" == "" ]; then
+  helper;
+elif [ "$2" == "" ]; then
+  helper;
+elif [ "$1" == "-i" ] || [ "$1" == "--ipaddr" ]; then
+  banner;
+  scanning iphost;
+elif [ "$1" == "-n" ] || [ "$1" == "--nmap" ]; then
+  banner;
+  scanning iphost;
+  scannmap iphost;
+fi
+rm -f $dir;
