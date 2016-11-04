@@ -33,7 +33,7 @@ helper(){
   echo -e "**this script require 'tor' and 'curl' to work"
   echo -e "**esse script requer 'tor' e 'curl' para funcionar"
 }
-
+ 
 scanning(){
   echo -e "\nStarting TOR service for torsocks..."
   sleep 1;
