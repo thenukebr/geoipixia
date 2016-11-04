@@ -7,6 +7,7 @@ Idiomas:
 
 <a name="ptbr"></a>
   <i>Script para caçar a geolocalização de um IP/Host</i>
+  
 Script para retornar informações sobre um IP/Hostname utilizando as aplicações
 web: "geoiptool.com" e "ipaddress.com". Com filtragem de dados via Shell Script
 é retornado o maior número de informações sobre o IP/Hostname, também
@@ -16,9 +17,12 @@ abertas.
 -------------------------------------------------------------------------------------------------
 
 <a name="en"></a>
-<i>Script to track a IP/Host geolocation</i>
+  <i>Script to track a IP/Host geolocation</i>
+
 Script to hunt the geolocation of an IP/Host Script to return informations about an IP/Hostname using the web applications:  "geoiptool.com" and "ipaddress.com". With filtering of data by way of Shell Script is returning more information about the IP/Hostname, also can do a scan with nmap to return informations about OS and open doors.
+
 -------------------------------------------------------------------------------------------------
+
 <a name="help"></a>
 Help Menu - Menu de ajuda
 -h or --help:
