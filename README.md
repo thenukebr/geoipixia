@@ -12,9 +12,9 @@ web: "geoiptool.com" e "ipaddress.com". Com filtragem de dados via Shell Script
 podendo fazer um scan com nmap para retornar informações sobre o OS e portas
 abertas.
 
-
-
-EN:Script to track a IP/Host geolocation
+<a name="en"></a>
+<i>Script to track a IP/Host geolocation</i>
+Script to hunt the geolocation of an IP/Host Script to return informations about an IP/Hostname using the web applications:  "geoiptool.com" and "ipaddress.com". With filtering of data by way of Shell Script is returning more information about the IP/Hostname, also can do a scan with nmap to return informations about OS and open doors.
 -h or --help:
   Call this help menu
   Chama esse menu de ajuda
@@ -36,7 +36,14 @@ EN:Script to track a IP/Host geolocation
 <b>
 
 <i>
-  -Os sites "geoiptool.com" e "ipaddress.com" são utilizados para trazer informações do IP/Hostname
   -esse script requer 'tor' e 'curl' para funcionar
   -this script require 'tor' and 'curl' to work
 </i>
+
+<b>
+Dependences:
+  apt-get install php-curl tor torsocks
+</b>
+
+https://www.wildcardcorp.com/blog/tor-torify-torsocks
+https://curl.haxx.se/
