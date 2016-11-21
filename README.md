@@ -55,5 +55,5 @@ Dependences:
   apt-get install php-curl tor torsocks
 </b>
 
-https://www.wildcardcorp.com/blog/tor-torify-torsocks
+https://www.wildcardcorp.com/blog/tor-torify-torsocks<br>
 https://curl.haxx.se/
